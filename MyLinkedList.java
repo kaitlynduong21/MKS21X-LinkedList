@@ -125,11 +125,20 @@ public class MyLinkedList{
    return false;
   }
 
-  /*public int indexOf(Integer value) {
-
+  public int indexOf(Integer value) {
+    Node current = start;
+    int index = 0;
+    while (current != end) {
+      if (current.getData() == value) {
+        return index;
+      }
+      index ++;
+      current = current.next();
+    }
+    return -10; //returns -10 if it does not contain the integer
   }
 
-  public void add(int index,Integer value) {
+  /*public void add(int index,Integer value) {
     Node n = new Node (value, this.get(index), this.get(index + 1));
     this.get(index).next = n;
     this.get(index + 1).prev = n;
@@ -180,5 +189,13 @@ public class MyLinkedList{
       System.out.println("This should print: false");
       System.out.println(list.contains(3));
       System.out.println("This should print: true");
+
+      System.out.println("########################");
+      System.out.println("##Index of Value Test:##");
+      System.out.println("########################");
+      System.out.println(list.indexOf(0));
+      System.out.println("This should print: 0");
+      System.out.println(list.indexOf(5));
+      System.out.println("This should print: 3");
     }
 }
