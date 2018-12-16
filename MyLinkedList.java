@@ -112,11 +112,20 @@ public class MyLinkedList{
     return 0;
   }
 
-/*  public boolean contains(Integer value) {
-
+ public boolean contains(Integer value) {
+   Node current = start;
+   int i = 0;
+   while (current != end) {
+     if (current.getData() == value) {
+       return true;
+     }
+     i ++;
+     current = current.next();
+   }
+   return false;
   }
 
-  public int indexOf(Integer value) {
+  /*public int indexOf(Integer value) {
 
   }
 
@@ -162,5 +171,14 @@ public class MyLinkedList{
       System.out.println(list.set(3, 5));
       System.out.println(list.set(5, 3));
       System.out.println(list);
+
+      //Step Six: Testing the Contains Method
+      System.out.println("##############################");
+      System.out.println("##Checking Containment Test:##");
+      System.out.println("##############################");
+      System.out.println(list.contains(999));
+      System.out.println("This should print: false");
+      System.out.println(list.contains(3));
+      System.out.println("This should print: true");
     }
 }
