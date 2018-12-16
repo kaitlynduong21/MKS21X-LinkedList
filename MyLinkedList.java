@@ -1,3 +1,5 @@
+
+
 public class MyLinkedList{
 
   private class Node{
@@ -138,13 +140,24 @@ public class MyLinkedList{
     return -10; //returns -10 if it does not contain the integer
   }
 
-  /*public void add(int index,Integer value) {
-    Node n = new Node (value, this.get(index), this.get(index + 1));
-    this.get(index).next = n;
-    this.get(index + 1).prev = n;
+  public void add(int index, Integer value) {
+    Integer x = end.getData();
+    Node current = start;
+    int i = 0;
+    while (i < size) {
+      if (i == index - 1) {
+        //System.out.println("works");
+        Node n = new Node (value, current.next(), current);
+        current.setNext(n);
+        i = size;
+        this.add(x); //add the last value back to the end
+      }
+      i ++;
+      current = current.next();
+    }
   }
 
-  public Integer remove(int index) {
+  /*public Integer remove(int index) {
 
   }
 
@@ -175,11 +188,11 @@ public class MyLinkedList{
       System.out.println(list);
       System.out.println("This should print: \"[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\"");
 
-      System.out.println(list.get(3));
+      /*System.out.println(list.get(3));
       System.out.println(list.get(5));
       System.out.println(list.set(3, 5));
       System.out.println(list.set(5, 3));
-      System.out.println(list);
+      System.out.println(list);*/
 
       //Step Six: Testing the Contains Method
       System.out.println("##############################");
@@ -196,6 +209,14 @@ public class MyLinkedList{
       System.out.println(list.indexOf(0));
       System.out.println("This should print: 0");
       System.out.println(list.indexOf(5));
-      System.out.println("This should print: 3");
+      System.out.println("This should print: 5");
+
+      System.out.println("#####################################");
+      System.out.println("##Adding Values in the Middle Test:##");
+      System.out.println("#####################################");
+      list.add(5, 999);
+      list.add(15, 999);
+      System.out.println(list);
+      System.out.println("This should print: \"[0, 1, 2, 3, 4, 999, 5, 6, 7, 8, 9]\"");
     }
 }
