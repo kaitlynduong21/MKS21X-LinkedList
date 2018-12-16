@@ -145,23 +145,41 @@ public class MyLinkedList{
     Node current = start;
     int i = 0;
     while (i < size) {
+      //System.out.println(this.toString());
       if (i == index - 1) {
         //System.out.println("works");
         Node n = new Node (value, current.next(), current);
         current.setNext(n);
+        size++; // adds the last value back to the end
         i = size;
-        this.add(x); //add the last value back to the end
+        //this.add(x); //add the last value back to the end
       }
       i ++;
       current = current.next();
     }
   }
 
-  /*public Integer remove(int index) {
-
+  public Integer remove(int index) {
+    Node current = start;
+    int i = 0;
+    while (i < size - 1) {
+      //System.out.println(this.toString());
+      if (i == index) {
+        Node n = current.next();
+        Integer old = n.getData();
+        current.setNext(n.next());
+        n.next().setPrev(current);
+        size --; //removes last value so its not there twice
+        i = size;
+        return old;
+      }
+      i ++;
+      current = current.next();
+    }
+    return -10;
   }
 
-  public Integer remove(Integer value) {
+  /*public Integer remove(Integer value) {
 
   }*/
 
@@ -218,5 +236,13 @@ public class MyLinkedList{
       list.add(15, 999);
       System.out.println(list);
       System.out.println("This should print: \"[0, 1, 2, 3, 4, 999, 5, 6, 7, 8, 9]\"");
+
+      //Step Four: Removing a value from the list by index
+      System.out.println("##########################");
+      System.out.println("##Removing a Value Test:##");
+      System.out.println("##########################");
+      list.remove(4);
+      System.out.println(list);
+      System.out.println("This should print: \"[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\"");
     }
 }
