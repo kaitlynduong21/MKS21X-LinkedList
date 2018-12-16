@@ -71,18 +71,32 @@ public class MyLinkedList{
   public String toString() {
     String s = "[";
     Node current = start;
-    while (current != end) {
-      s = s + current.getData() + ", ";
+    int i = 0;
+    while (i < size) {
+      s = s + current.getData();
       current = current.next();
+      if (i < size - 1) {
+        s += ", ";
+      }
+      i ++;
     }
-    return s = s + current.getData() + "]";
+    return s += "]";// = s + end.getData() + "]";
   }   //note you don't have get(index) yet, nor would you want to use it here
 
 
-  /*public Integer get(int index){
-
+  public Integer get(int index){
+      Node current = start;
+      int i = 0;
+      while (current != end) {
+        if (i == index) {
+          return current.getData();
+        }
+        i ++;
+        current = current.next();
+      }
+      return 0;
   }
-
+/*
   public Integer set(int index,Integer value) {
 
   }
@@ -127,9 +141,12 @@ public class MyLinkedList{
       System.out.println("#######################");
       for(int i = 0; i < 10; i++) {
           list.add(i);
-          System.out.println(list.size()); //<- Debugging
+          //System.out.println(list.size()); //<- Debugging
       }
       System.out.println(list);
       System.out.println("This should print: \"[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\"");
+
+      System.out.println(list.get(3));
+      System.out.println(list.get(5));
     }
 }
