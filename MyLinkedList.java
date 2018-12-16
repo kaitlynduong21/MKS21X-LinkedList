@@ -57,9 +57,8 @@ public class MyLinkedList{
       start = n;
     } else {
       Node n = new Node(value, end, null);
+      end.setNext(n);
       end = n;
-      //n.prev.setNext(n);
-      //System.out.println(n.prev.getData());
   }
     size ++;
     return true;
@@ -70,18 +69,13 @@ public class MyLinkedList{
   }
 
   public String toString() {
-    if (size == 0) {
-      return "[]";
-    }
     String s = "[";
-    Node current = new Node (start.getData(), start.prev, start.next);
-    for (int i = 0; i < size - 1; i ++) {
-      s += current.getData();
-      s += ", ";
-      current.setPrev(current.next());
-      current.setNext(current.next().next());
+    Node current = start;
+    while (current != end) {
+      s = s + current.getData() + ", ";
+      current = current.next();
     }
-    return s += "]";
+    return s = s + current.getData() + "]";
   }   //note you don't have get(index) yet, nor would you want to use it here
 
 
