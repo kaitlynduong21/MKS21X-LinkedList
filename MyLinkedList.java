@@ -53,12 +53,12 @@ public class MyLinkedList{
   public boolean add(Integer value) {
     if (size == 0) {
       Node n = new Node(value, null, null);
-      end = n;
+      end = n; // set both the start and end refer to the new node if the list is empty
       start = n;
     } else {
       Node n = new Node(value, end, null);
-      end.setNext(n);
-      end = n;
+      end.setNext(n); // set the end refer to the new node
+      end = n; //set the end to the new node
   }
     size ++;
     return true;
@@ -80,7 +80,7 @@ public class MyLinkedList{
       }
       i ++;
     }
-    return s += "]";// = s + end.getData() + "]";
+    return s += "]";
   }   //note you don't have get(index) yet, nor would you want to use it here
 
 
@@ -94,14 +94,25 @@ public class MyLinkedList{
         i ++;
         current = current.next();
       }
-      return 0;
+      return 0; //return 0 if index is out of bounds
   }
-/*
+
   public Integer set(int index,Integer value) {
-
+    Node current = start;
+    int i = 0;
+    while (current != end) {
+      if (i == index) {
+        int old = current.getData();
+        current.setData(value);
+        return old;
+      }
+      i ++;
+      current = current.next();
+    }
+    return 0;
   }
 
-  public boolean contains(Integer value) {
+/*  public boolean contains(Integer value) {
 
   }
 
@@ -148,5 +159,8 @@ public class MyLinkedList{
 
       System.out.println(list.get(3));
       System.out.println(list.get(5));
+      System.out.println(list.set(3, 5));
+      System.out.println(list.set(5, 3));
+      System.out.println(list);
     }
 }
