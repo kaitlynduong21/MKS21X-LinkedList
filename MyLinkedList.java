@@ -12,10 +12,6 @@ public class MyLinkedList{
       prev = prevref;
     }
 
-    public Node (Integer a) {
-      data = a;
-    }
-
     public Node next() {
       return next;
     }
@@ -89,33 +85,27 @@ public class MyLinkedList{
     return s += "]";
   }   //note you don't have get(index) yet, nor would you want to use it here
 
-
-  public Integer get(int index){
-      Node current = start;
-      int i = 0;
-      while (i < size) {
-        if (i == index) {
-          return current.getData();
-        }
-        i ++;
-        current = current.next();
-      }
-    throw new IndexOutOfBoundsException("Index cannot be negative or is greater than the size");
-  }
-
-  public Integer set(int index,Integer value) {
+  private Node getNthNode(int index) {
+    if (index < 0 || index >= size) {
+      throw new IndexOutOfBoundsException(index + " is out of bounds");
+    }
     Node current = start;
     int i = 0;
-    while (i < size) {
-      if (i == index) {
-        int old = current.getData();
-        current.setData(value);
-        return old;
-      }
+    while (i != index) {
       i ++;
       current = current.next();
     }
-    throw new IndexOutOfBoundsException("Index cannot be negative or is greater than the size");
+    return current;
+  }
+
+  public Integer get(int index){
+      return getNthNode(index).getData();
+  }
+
+  public Integer set(int index,Integer value) {
+    Integer old = getNthNode(index).getData();
+    getNthNode(index).setData(value);
+    return old;
   }
 
  public boolean contains(Integer value) {
@@ -145,54 +135,60 @@ public class MyLinkedList{
   }
 
   public void add(int index, Integer value) {
-    Integer x = end.getData();
-    Node current = start;
-    int i = 0;
+    if (index < 0 || index >= size) {
+      throw new IndexOutOfBoundsException(index + " is out of bounds");
+    }
     if (index == 0) {
       Node n = new Node (value, start, null);
       start = n;
-      size++;
+      size ++;
     }
-    while (i < size) {
-      //System.out.println(this.toString());
-      if (i == index - 1) {
-        //System.out.println("works");
-        Node n = new Node (value, current.next(), current);
-        current.setNext(n);
-        size++; // adds the last value back to the end
-        i = size;
-        //this.add(x); //add the last value back to the end
-      }
-      i ++;
-      current = current.next();
+    if (index == size) {
+      this.add(value);
     }
+    if (index != 0 && index != size){
+    Node newNext = getNthNode(index);
+    Node newPrev = newNext.prev();
+    Node addThis = new Node (value, newNext, newPrev);
+    newNext.setPrev(addThis);
+    newPrev.setNext(addThis);
+    size ++;
   }
+}
 
   public Integer remove(int index) {
-    Node current = start;
-    int i = 0;
+    if (index < 0 || index >= size) {
+      throw new IndexOutOfBoundsException(index + " is out of bounds");
+    }
     if (index == 0) {
-      Integer n = start.getData();
-      start = current.next();
+      Integer old = start.getData();
+      Node newStart = start.next();
+      newStart.setPrev(null);
+      start = newStart;
       size--;
-      return n;
+      return old;
     }
-    while (i < size) {
-      //System.out.println(this.toString());
-      if (i == index - 1) {
-        Node n = current.next();
-        Integer old = n.getData();
-        current.setNext(n.next());
-        n.next().setPrev(current);
-        size --; //removes last value so its not there twice
-        i = size;
-        return old;
-      }
-      i ++;
-      current = current.next();
+    if (index == size - 1) {
+      Integer old = end.getData();
+      Node newEnd = end;
+      newEnd.setNext(null);
+      end = newEnd;
+      size--;
+      return old;
     }
-    throw new IndexOutOfBoundsException("Index cannot be negative or is greater than the size");
+    if (index != 0 && index != size - 1){
+    Node current = getNthNode(index);
+    Node newPrev = current.prev();
+    Node newNext = current.next();
+    Integer old = newPrev.getData();
+    Node k = getNthNode(index - 1);
+    newNext.setPrev(newPrev);
+    newPrev.setNext(newNext);
+    size--;
+    return old;
   }
+  return 0;
+}
 
   public boolean remove(Integer value) {
     Node current = start;
